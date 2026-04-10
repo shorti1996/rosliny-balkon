@@ -209,6 +209,7 @@
       align-items: center;
       justify-content: center;
       font-size: 6rem;
+      flex-shrink: 0;
     }
 
     .modal-carousel img {
@@ -315,8 +316,9 @@
 
     .modal-close {
       position: absolute;
-      top: 1rem;
-      right: 1rem;
+      top: 0.6rem;
+      right: 0.6rem;
+      z-index: 10;
       width: 36px;
       height: 36px;
       border-radius: 50%;
@@ -329,6 +331,25 @@
       justify-content: center;
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
+
+    .modal-close-bottom {
+      display: block;
+      width: 100%;
+      padding: 0.75rem;
+      border: none;
+      background: #4a8c3f;
+      color: white;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+      position: sticky;
+      bottom: 0;
+      border-radius: 0 0 16px 16px;
+      flex-shrink: 0;
+    }
+
+    .modal-close-bottom:hover { background: #3a7230; }
 
     .modal-overlay .modal { position: relative; }
 
@@ -486,8 +507,7 @@ function openModal(plant) {
   window._carouselIdx = 0;
 
   modal.innerHTML = `
-    <button class="modal-close" onclick="closeModal()">&times;</button>
-    <div class="modal-carousel">${carouselContent}</div>
+    <div class="modal-carousel"><button class="modal-close" onclick="closeModal()">&times;</button>${carouselContent}</div>
     <div class="modal-body">
       <h2>${meta.nazwa || slug}</h2>
       <div class="latin">${meta.lacinska || ''}</div>
@@ -515,6 +535,7 @@ function openModal(plant) {
         </div>
       </div>
     </div>
+    <button class="modal-close-bottom" onclick="closeModal()">Zamknij</button>
   `;
   document.getElementById('modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
